@@ -15,9 +15,10 @@ const App: React.FC = () => {
     const fetchNotes = async () => {
         try {
             const notes = await getAllNotes();
+            console.log('Fetched notes:', notes);
             setNotes(notes);
         } catch (error) {
-            console.error(error);
+            console.error('Error fetching notes:', error);
         }
     };
 
