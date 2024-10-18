@@ -57,16 +57,6 @@ const App: React.FC = () => {
         <div>
             <h1>Notes App</h1>
             <CreateNoteForm onCreate={handleCreateNote} />
-
-    const handleCreateNote = async (piecesText: string[]) => {
-        try {
-            await createNote(piecesText);
-            console.log('Note created successfully');
-            fetchNotes();
-        } catch (error) {
-            console.error(error);
-        }
-    };
             <NotesList
                 notes={notes}
                 onUpdate={handleUpdateNote}
