@@ -26,7 +26,7 @@ module.exports = {
         },
         historyApiFallback: true, // For React Router or Single Page Applications
         compress: true,
-        port: 9000,
+        port: 9001,
         proxy: [
             {
                 context: ['/notes'],
