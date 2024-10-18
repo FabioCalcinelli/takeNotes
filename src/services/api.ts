@@ -34,13 +34,18 @@ export async function getAllNotes(): Promise<Note[]> {
             'Content-Type': 'application/json',
         },
     });
-    console.log(await response.text());
-    if (!response.ok) {
+
+    if (response.ok) {
+        try {
+            return await response.json();
+        } catch (error) {
+            console.error('Error parsing response:', error);
+            throw new Error('Failed to get notes');
+        }
+    } else {
+        console.error('Error getting notes:', response.status);
         throw new Error('Failed to get notes');
     }
-
-    const notes = await response.json();
-    return notes as Note[];
 }
 
 export async function updateNote(note_id: number, piecesText: string[]): Promise<{ message: string }> {
@@ -54,11 +59,17 @@ export async function updateNote(note_id: number, piecesText: string[]): Promise
         }),
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+        try {
+            return await response.json();
+        } catch (error) {
+            console.error('Error parsing response:', error);
+            throw new Error('Failed to update note');
+        }
+    } else {
+        console.error('Error updating note:', response.status);
         throw new Error('Failed to update note');
     }
-
-    return await response.json();
 }
 
 export async function deleteNote(note_id: number): Promise<{ message: string }> {
@@ -66,9 +77,15 @@ export async function deleteNote(note_id: number): Promise<{ message: string }> 
         method: 'DELETE',
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+        try {
+            return await response.json();
+        } catch (error) {
+            console.error('Error parsing response:', error);
+            throw new Error('Failed to delete note');
+        }
+    } else {
+        console.error('Error deleting note:', response.status);
         throw new Error('Failed to delete note');
     }
-
-    return await response.json();
 }
