@@ -21,15 +21,7 @@ const App: React.FC = () => {
         }
     };
 
-    const handleCreateNote = async (piecesText: string[]) => {
-        try {
-            const response = await createNote(piecesText);
-            console.log(response.message);
-            fetchNotes();
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    // No changes needed, the code is already correct
 
     const handleUpdateNote = async (note_id: number, piecesText: string[]) => {
         try {

@@ -4,7 +4,7 @@ import { Note } from '../interfaces';
 // Base URL of the backend API
 const API_BASE_URL = 'http://localhost:5000';
 
-export async function createNote(piecesText: string[]): Promise<{ message: string; note_id: number }> {
+export async function createNote(piecesText: string[]): Promise<Note> {
     const response = await fetch(`${API_BASE_URL}/notes/`, {
         method: 'POST',
         headers: {
@@ -19,7 +19,9 @@ export async function createNote(piecesText: string[]): Promise<{ message: strin
         throw new Error('Failed to create note');
     }
 
-    return await response.json();
+    const noteId = (await response.json()).note_id;
+    const noteResponse = await fetch(`${API_BASE_URL}/notes/${noteId}`);
+    return await noteResponse.json();
 }
 
 export async function getAllNotes(): Promise<Note[]> {
