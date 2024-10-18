@@ -15,13 +15,16 @@ export async function createNote(piecesText: string[]): Promise<Note> {
         }),
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        const noteId = data.note_id;
+        const noteResponse = await fetch(`${API_BASE_URL}/notes/${noteId}`);
+        return await noteResponse.json();
+    } else {
+        console.error('Error creating note:', response.status);
         throw new Error('Failed to create note');
     }
-
-    const noteId = (await response.json()).note_id;
-    const noteResponse = await fetch(`${API_BASE_URL}/notes/${noteId}`);
-    return await noteResponse.json();
 }
 
 export async function getAllNotes(): Promise<Note[]> {
@@ -31,7 +34,7 @@ export async function getAllNotes(): Promise<Note[]> {
             'Content-Type': 'application/json',
         },
     });
-
+    console.log(await response.text());
     if (!response.ok) {
         throw new Error('Failed to get notes');
     }
