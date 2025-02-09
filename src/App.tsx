@@ -1,15 +1,18 @@
 // App.tsx
-import React, { useState, useEffect } from 'react';
-import { Note } from './interfaces';
-import { getAllNotes, createNote, updateNote, deleteNote } from './services/api';
+import React, {useState, useEffect} from 'react';
+import {Note, Todo} from './interfaces';
+import {getAllNotes, createNote, updateNote, deleteNote} from './services/api_notes';
 import CreateNoteForm from './components/CreateNoteForm';
 import NotesList from './components/NotesList';
+import {createTodo, deleteTodo, getAllTodos, updateTodo} from "./services/api_todos";
 
 const App: React.FC = () => {
     const [notes, setNotes] = useState<Note[]>([]);
+    const [todos, setTodos] = useState<Todo[]>([])
 
     useEffect(() => {
         fetchNotes();
+        fetchTodos();
     }, []);
 
     const fetchNotes = async () => {
@@ -22,7 +25,15 @@ const App: React.FC = () => {
         }
     };
 
-    // No changes needed, the code is already correct
+    const fetchTodos = async () => {
+        try {
+            const todos = await getAllTodos();
+            console.log('Fetched todos:', todos);
+            setTodos(todos);
+        } catch (error) {
+            console.error('Error fetching todos:', error);
+        }
+    };
 
     const handleUpdateNote = async (note_id: number, piecesText: string[]) => {
         try {
@@ -54,15 +65,50 @@ const App: React.FC = () => {
         }
     };
 
+    const handleUpdateTodo = async (todo_id: number, text: string) => {
+        try {
+            await updateTodo(todo_id, text);
+            console.log('Todo updated successfully');
+            fetchTodos();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleDeleteTodo = async (todo_id: number) => {
+        try {
+            await deleteTodo(todo_id);
+            console.log('Todo deleted successfully');
+            fetchTodos();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleCreateTodo = async (text: string) => {
+        try {
+            await createTodo(text);
+            console.log('Todo created successfully');
+            fetchTodos();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div>
             <h1>Notes App</h1>
-            <CreateNoteForm onCreate={handleCreateNote} />
+            <CreateNoteForm onCreate={handleCreateNote}/>
             <NotesList
                 notes={notes}
                 onUpdate={handleUpdateNote}
                 onDelete={handleDeleteNote}
             />
+            <CreateTodoForm onCreate={handleCreateTodo}/>
+            <TodosList
+                todos={todos}
+                onUpdate={handleUpdateTodo}
+                onDelete={handleDeleteTodo}/>
         </div>
     );
 };

@@ -11,3 +11,11 @@ export interface Note {
     pieces: Piece[];
 }
 
+export interface Todo {
+    id?: number;
+    text: string;
+    timestamp?: string;
+    completion_timestamp?: string;
+    completed: boolean;
+}
+
