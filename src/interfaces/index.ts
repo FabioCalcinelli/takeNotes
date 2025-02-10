@@ -12,6 +12,7 @@ export interface Note {
 }
 
 export interface Todo {
+    last_update_timestamp?: string;
     id?: number;
     text: string;
     timestamp?: string;
