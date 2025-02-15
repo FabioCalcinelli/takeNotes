@@ -2,7 +2,7 @@
 import { Note } from '../interfaces';
 
 // Base URL of the backend API
-export const API_BASE_URL = 'http://localhost:5000/notes';
+export const API_BASE_URL = 'http://localhost:5000';
 
 export async function createNote(piecesText: string[]): Promise<Note> {
     const response = await fetch(`${API_BASE_URL}/notes/`, {
@@ -11,7 +11,7 @@ export async function createNote(piecesText: string[]): Promise<Note> {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            pieces: piecesText,
+            pieces: piecesText.map((text) => ({ text })),
         }),
     });
 
