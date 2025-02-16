@@ -8,7 +8,7 @@ export async function createTodo(text: string): Promise<Todo> {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            pieces: text,
+            text: text,
         }),
     });
 
@@ -45,7 +45,7 @@ export async function getAllTodos(): Promise<Todo[]> {
     }
 }
 
-export async function updateTodo(todo_id: number, text: string): Promise<{ message: string }> {
+export async function updateTodo(todo_id: number, text: string, switchCompletion: boolean): Promise<{ message: string }> {
     const response = await fetch(`${API_BASE_URL}/todos/${todo_id}`, {
         method: 'PUT',
         headers: {
@@ -53,6 +53,7 @@ export async function updateTodo(todo_id: number, text: string): Promise<{ messa
         },
         body: JSON.stringify({
             text: text,
+            switchCompletion: switchCompletion,
         }),
     });
 

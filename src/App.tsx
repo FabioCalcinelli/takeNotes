@@ -4,10 +4,9 @@ import {Note, Todo} from './interfaces';
 import {getAllNotes, createNote, updateNote, deleteNote} from './services/api_notes';
 import CreateNoteForm from './components/CreateNoteForm';
 import CreateTodoForm from './components/CreateTodoForm';
-
 import NotesList from './components/NotesList';
 import TodosList from './components/TodosList';
-
+import './App.css';
 import {createTodo, deleteTodo, getAllTodos, updateTodo} from "./services/api_todos";
 
 const App: React.FC = () => {
@@ -69,9 +68,9 @@ const App: React.FC = () => {
         }
     };
 
-    const handleUpdateTodo = async (todo_id: number, text: string) => {
+    const handleUpdateTodo = async (todo_id: number, text: string, switchCompletion: boolean) => {
         try {
-            await updateTodo(todo_id, text);
+            await updateTodo(todo_id, text, switchCompletion);
             console.log('Todo updated successfully');
             fetchTodos();
         } catch (error) {
@@ -100,19 +99,25 @@ const App: React.FC = () => {
     };
 
     return (
-        <div>
-            <h1>Notes App</h1>
-            <CreateNoteForm onCreate={handleCreateNote}/>
-            <NotesList
-                notes={notes}
-                onUpdate={handleUpdateNote}
-                onDelete={handleDeleteNote}
-            />
-            <CreateTodoForm onCreate={handleCreateTodo}/>
-            <TodosList
-                todos={todos}
-                onUpdate={handleUpdateTodo}
-                onDelete={handleDeleteTodo}/>
+        <div className="container">
+            <div>
+                <h2>Todos</h2>
+                <CreateTodoForm onCreate={handleCreateTodo}/>
+                <TodosList
+                    todos={todos}
+                    onUpdate={handleUpdateTodo}
+                    onDelete={handleDeleteTodo}
+                />
+            </div>
+            <div>
+                <h2>Notes</h2>
+                <CreateNoteForm onCreate={handleCreateNote}/>
+                <NotesList
+                    notes={notes}
+                    onUpdate={handleUpdateNote}
+                    onDelete={handleDeleteNote}
+                />
+            </div>
         </div>
     );
 };

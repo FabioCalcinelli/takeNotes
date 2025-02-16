@@ -5,11 +5,11 @@ import TodoItem from './TodoItem';
 
 interface TodosListProps {
     todos: Todo[];
-    onUpdate: (todo_id: number, text: string) => void;
+    onUpdate: (todo_id: number, text: string, switchCompletion: boolean) => void;
     onDelete: (todo_id: number) => void;
 }
 
-const TodosList: React.FC<TodosListProps> = ({ todos, onUpdate, onDelete }) => {
+const TodosList: React.FC<TodosListProps> = ({ todos, onUpdate, onDelete}) => {
     return (
         <div>
             <h2>All Todos</h2>
