@@ -2,6 +2,6 @@ A frontend for notes.py.
 
 Execution:
 
-npm install
+`npm install`
 
-npm start
+`npm run dev`

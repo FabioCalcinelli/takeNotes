@@ -1,5 +1,5 @@
 // App.tsx
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Note, Todo} from './interfaces';
 import {getAllNotes, createNote, updateNote, deleteNote} from './services/api_notes';
 import CreateNoteForm from './components/CreateNoteForm';
@@ -9,7 +9,7 @@ import TodosList from './components/TodosList';
 import './App.css';
 import {createTodo, deleteTodo, getAllTodos, updateTodo} from "./services/api_todos";
 
-const App: React.FC = () => {
+const App = () => {
     const [notes, setNotes] = useState<Note[]>([]);
     const [todos, setTodos] = useState<Todo[]>([])
 
