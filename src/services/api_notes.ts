@@ -55,7 +55,7 @@ export async function updateNote(note_id: number, piecesText: string[]): Promise
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            pieces: piecesText,
+            pieces: piecesText.map((text) => ({ text })),
         }),
     });
 
