@@ -1,5 +1,4 @@
 // TodosList.tsx
-import React from 'react';
 import { Todo } from '../interfaces';
 import TodoItem from './TodoItem';
 
@@ -9,10 +8,9 @@ interface TodosListProps {
     onDelete: (todo_id: number) => void;
 }
 
-const TodosList: React.FC<TodosListProps> = ({ todos, onUpdate, onDelete}) => {
+const TodosList = ({ todos, onUpdate, onDelete}) => {
     return (
         <div>
-            <h2>All Todos</h2>
             {todos.map((todo) => (
                 <TodoItem
                     key={todo.id}

@@ -12,7 +12,6 @@ interface NotesListProps {
 const NotesList: React.FC<NotesListProps> = ({ notes, onUpdate, onDelete }) => {
     return (
         <div>
-            <h2>All Notes</h2>
             {notes.map((note) => (
                 <NoteItem
                     key={note.id}

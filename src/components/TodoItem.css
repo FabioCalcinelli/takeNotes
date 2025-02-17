@@ -1,0 +1,61 @@
+/* styles.css */
+.todo {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.todo.completed {
+    background-color: rgba(0, 128, 0, 0.1); /* green */
+    border: 2px solid green;
+
+}
+
+.todo.uncompleted {
+    background-color: rgba(128,0, 0, 0.1);
+    border: 2px solid red;
+
+}
+
+.todo.completed:hover {
+    background-color: rgba(0, 128, 0, 0.2);
+    border: 2px solid green;
+
+}
+
+.todo.uncompleted:hover {
+    background-color: rgba(128,0, 0, 0.2);
+    border: 2px solid red;
+
+}
+
+.completion-timestamp {
+    display: inline;
+    margin-left: 10px;
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+.todo:hover .completion-timestamp {
+    visibility: visible;
+}
+
+.todo-header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+.todo-header h3, .todo-header p {
+    flex: 1;
+}
+
+.completion-timestamp {
+    display: inline;
+    margin-left: 10px;
+}

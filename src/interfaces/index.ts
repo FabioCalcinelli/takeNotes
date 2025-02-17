@@ -6,7 +6,7 @@ export interface Piece {
 
 export interface Note {
     id?: number; // ID might not be present when creating
-    timestamp?: string;
+    creation_timestamp?: string;
     last_update_timestamp?: string;
     pieces: Piece[];
 }

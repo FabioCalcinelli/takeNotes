@@ -1,6 +1,8 @@
 // TodoItem.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Todo } from '../interfaces';
+import './TodoItem.css'
+import {convertTimestampToDateAndTime} from "../helper/convert_timestamp.ts";
 
 interface TodoItemProps {
     todo: Todo;
@@ -8,7 +10,7 @@ interface TodoItemProps {
     onDelete: (todo_id: number) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, onUpdate, onDelete}) => {
+const TodoItem = ({ todo, onUpdate, onDelete}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(todo.text);
 
@@ -30,11 +32,16 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onUpdate, onDelete}) => {
     };
 
     return (
-        <div>
-            <h3>Todo ID: {todo.id}</h3>
-            <p>Created: {todo.timestamp}</p>
-            <p>Last Updated: {todo.last_update_timestamp}</p>
-            <p>Completed: {todo.completed ? 'Yes' : 'No'}</p>
+        <div className={`todo ${todo.completed ? 'completed' : 'uncompleted'}`}>
+            <div className="todo-header">
+                <h3>#{todo.id} - {convertTimestampToDateAndTime(todo.timestamp)}</h3>
+                {todo.completion_timestamp && (
+                    <p className="completion-timestamp">
+                        {todo.completed ? 'Completed at: ' : 'Last completed at: '}
+                        {convertTimestampToDateAndTime(todo.completion_timestamp)}
+                    </p>
+                )}
+            </div>
             {isEditing ? (
                 <div>
                     <textarea

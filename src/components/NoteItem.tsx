@@ -1,14 +1,15 @@
 // NoteItem.tsx
-import React, { useState } from 'react';
-import { Note } from '../interfaces';
-
+import {useState} from 'react';
+import {Note} from '../interfaces';
+import './NoteItem.css'
+import {convertTimestampToDateAndTime} from "../helper/convert_timestamp.ts";
 interface NoteItemProps {
-    note: Note;
-    onUpdate: (note_id: number, piecesText: string[]) => void;
-    onDelete: (note_id: number) => void;
+    note: Note,
+    onUpdate: (note_id: number, piecesText: string[]) => void,
+    onDelete: (note_id: number) => void,
 }
 
-const NoteItem: React.FC<NoteItemProps> = ({ note, onUpdate, onDelete }) => {
+const NoteItem = ({note, onUpdate, onDelete}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [piecesText, setPiecesText] = useState<string[]>(note.pieces.map((p) => p.text));
 
@@ -30,10 +31,11 @@ const NoteItem: React.FC<NoteItemProps> = ({ note, onUpdate, onDelete }) => {
     };
 
     return (
-        <div>
-            <h3>Note ID: {note.id}</h3>
-            <p>Created: {note.timestamp}</p>
-            <p>Last Updated: {note.last_update_timestamp}</p>
+        <div className='note'>
+            <div className="note-metadata">
+                <h3>#{note.id} - {convertTimestampToDateAndTime(note.creation_timestamp)}</h3>
+                <p className="completion-timestamp">Last updated at: {convertTimestampToDateAndTime(note.last_update_timestamp)}</p>
+            </div>
             {isEditing ? (
                 <div>
                     {piecesText.map((text, index) => (
