@@ -14,7 +14,6 @@
 
 
 .completion-timestamp {
-    position: absolute;
     visibility: hidden;
     background-color: #555;
     color: #fff;
@@ -29,4 +28,6 @@
 .note-metadata {
     display: flex;
     align-items: center;
+    flex-direction: row;
+
 }

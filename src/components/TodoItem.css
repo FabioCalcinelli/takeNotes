@@ -31,7 +31,6 @@
 }
 
 .completion-timestamp {
-    display: inline;
     margin-left: 10px;
     visibility: hidden;
     background-color: #555;
@@ -49,10 +48,6 @@
     align-items: center;
     flex-direction: row;
 
-}
-
-.todo-header h3, .todo-header p {
-    flex: 1;
 }
 
 .completion-timestamp {
