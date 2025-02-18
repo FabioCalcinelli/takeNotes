@@ -1,30 +1,42 @@
-// CreateTodoForm.tsx
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import "./CreateTodoForm.css"
 interface CreateTodoFormProps {
     onCreate: (text: string) => void;
 }
 
+
 const CreateTodoForm: React.FC<CreateTodoFormProps> = ({ onCreate }) => {
     const [text, setText] = useState('');
+    const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        onCreate(text);
-        setText('');
+    useEffect(() => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+
+        const newTimeoutId = setTimeout(() => {
+            if (text.trim() !== '') {
+                onCreate(text.trim());
+                setText('');
+            }
+        }, 5000);
+
+        setTimeoutId(newTimeoutId);
+
+        return () => clearTimeout(newTimeoutId);
+    }, [text, onCreate]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setText(e.target.value);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Create a Todo</h2>
-            <textarea
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Todo text"
-            />
-            <button type="submit">Create Todo</button>
-        </form>
+        <textarea
+            className="todo-textarea"
+            value={text}
+            onChange={handleChange}
+            placeholder="Todo text"
+        />
     );
 };
-
 export default CreateTodoForm;

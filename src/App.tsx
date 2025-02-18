@@ -100,23 +100,25 @@ const App = () => {
 
     return (
         <div className="container">
-            <div>
-                <h2>Todos</h2>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+                <div className="scrollable">
+                    <TodosList
+                        todos={todos}
+                        onUpdate={handleUpdateTodo}
+                        onDelete={handleDeleteTodo}
+                    />
+                </div>
                 <CreateTodoForm onCreate={handleCreateTodo}/>
-                <TodosList
-                    todos={todos}
-                    onUpdate={handleUpdateTodo}
-                    onDelete={handleDeleteTodo}
-                />
             </div>
-            <div>
-                <h2>Notes</h2>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+                <div className="scrollable">
+                    <NotesList
+                        notes={notes}
+                        onUpdate={handleUpdateNote}
+                        onDelete={handleDeleteNote}
+                    />
+                </div>
                 <CreateNoteForm onCreate={handleCreateNote}/>
-                <NotesList
-                    notes={notes}
-                    onUpdate={handleUpdateNote}
-                    onDelete={handleDeleteNote}
-                />
             </div>
         </div>
     );

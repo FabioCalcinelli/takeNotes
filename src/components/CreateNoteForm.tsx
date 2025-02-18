@@ -26,7 +26,6 @@ const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onCreate }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Create a Note</h2>
             {piecesText.map((text, index) => (
                 <input
                     key={index}

@@ -1,0 +1,15 @@
+.note-textarea {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    width: 100%;
+    resize: none;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.note-textarea:focus {
+    outline: none;
+    border: 2px solid orange;
+}

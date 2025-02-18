@@ -3,3 +3,10 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
+
+
+.scrollable {
+    height: 80vh;
+    overflow-y: auto;
+    flex: 1;
+}
