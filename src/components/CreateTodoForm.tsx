@@ -31,12 +31,23 @@ const CreateTodoForm: React.FC<CreateTodoFormProps> = ({ onCreate }) => {
         setText(e.target.value);
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            if (text.trim() !== '') {
+                onCreate(text.trim());
+                setText('');
+            }
+        }
+    };
+
     return (
         <textarea
             className="todo"
             value={text}
             onChange={handleChange}
             placeholder="Todo text"
+            onKeyDown={handleKeyDown}
         />
     );
 };
