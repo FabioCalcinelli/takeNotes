@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./CreateTodoForm.css"
+import "./TodoItem.css"
 interface CreateTodoFormProps {
     onCreate: (text: string) => void;
 }
@@ -32,7 +33,7 @@ const CreateTodoForm: React.FC<CreateTodoFormProps> = ({ onCreate }) => {
 
     return (
         <textarea
-            className="todo-textarea"
+            className="todo"
             value={text}
             onChange={handleChange}
             placeholder="Todo text"

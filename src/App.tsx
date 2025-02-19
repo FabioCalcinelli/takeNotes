@@ -100,7 +100,7 @@ const App = () => {
 
     return (
         <div className="container">
-            <div style={{display: 'flex', flexDirection: 'column'}}>
+            <div className="column">
                 <div className="scrollable">
                     <TodosList
                         todos={todos}
@@ -110,7 +110,7 @@ const App = () => {
                 </div>
                 <CreateTodoForm onCreate={handleCreateTodo}/>
             </div>
-            <div style={{display: 'flex', flexDirection: 'column'}}>
+            <div className="column">
                 <div className="scrollable">
                     <NotesList
                         notes={notes}
