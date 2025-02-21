@@ -1,5 +1,6 @@
 .container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     height: 100vh;
     gap: 20px;
 }
@@ -10,3 +11,4 @@
     flex: 1;
     overflow-y: auto;
 }
+
