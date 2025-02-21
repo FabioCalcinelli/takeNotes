@@ -1,6 +1,6 @@
 // TodoItem.tsx
-import { useState } from 'react';
-import { Todo } from '../interfaces';
+import {ChangeEvent, useState} from 'react';
+import {Todo} from '../interfaces';
 import './TodoItem.css'
 import {convertTimestampToDateAndTime} from "../helper/convert_timestamp.ts";
 
@@ -10,11 +10,11 @@ interface TodoItemProps {
     onDelete: (todo_id: number) => void;
 }
 
-const TodoItem = ({ todo, onUpdate, onDelete}) => {
+const TodoItem = ({todo, onUpdate}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(todo.text);
 
-    const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
     };
 
@@ -32,7 +32,9 @@ const TodoItem = ({ todo, onUpdate, onDelete}) => {
     };
 
     return (
-        <div className={`todo ${todo.completed ? 'completed' : 'uncompleted'}`}>
+        <div className={`todo ${todo.completed ? 'completed' : 'uncompleted'}`}
+             onClick={() => !isEditing && setIsEditing(true)
+             }>
             <div className="todo-header">
                 <h3>#{todo.id} - {convertTimestampToDateAndTime(todo.timestamp)}</h3>
                 {todo.completion_timestamp && (
@@ -44,26 +46,31 @@ const TodoItem = ({ todo, onUpdate, onDelete}) => {
             </div>
             {isEditing ? (
                 <div>
-                    <textarea
-                        value={text}
-                        onChange={handleTextChange}
-                        placeholder="Todo text"
-                    />
-                    <div>
-                        <button onClick={handleSave}>Save</button>
-                        <button onClick={() => setIsEditing(false)}>Cancel</button>
-                    </div>
+                <textarea
+                    value={text}
+                    onChange={handleTextChange}
+                    onBlur={handleSave}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            handleSave();
+                        }
+                    }}
+                    placeholder="Todo text"
+                    autoFocus
+                />
                 </div>
             ) : (
                 <div>
                     <p>{todo.text}</p>
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
-                    <button onClick={() => todo.id !== undefined && onDelete(todo.id)}>
-                        Delete
-                    </button>
-                    <button onClick={handleSwitchCompletion}>
-                        {todo.completed ? 'Mark as Incomplete' : 'Mark as Complete'}
-                    </button>
+                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                        <button
+                            className={todo.completed ? 'red-button' : 'green-button'}
+                            onClick={handleSwitchCompletion}
+                        >
+                            {todo.completed ? 'Mark as Incomplete' : 'Mark as Complete'}
+                        </button>
+                    </div>
                 </div>
             )}
         </div>

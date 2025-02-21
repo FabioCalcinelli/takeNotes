@@ -5,10 +5,9 @@ import TodoItem from './TodoItem';
 interface TodosListProps {
     todos: Todo[];
     onUpdate: (todo_id: number, text: string, switchCompletion: boolean) => void;
-    onDelete: (todo_id: number) => void;
 }
 
-const TodosList = ({ todos, onUpdate, onDelete}) => {
+const TodosList = ({ todos, onUpdate}) => {
     return (
         <div>
             {todos.map((todo) => (
@@ -16,7 +15,6 @@ const TodosList = ({ todos, onUpdate, onDelete}) => {
                     key={todo.id}
                     todo={todo}
                     onUpdate={onUpdate}
-                    onDelete={onDelete}
                 />
             ))}
         </div>

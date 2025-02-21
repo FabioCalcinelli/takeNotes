@@ -78,16 +78,6 @@ const App = () => {
         }
     };
 
-    const handleDeleteTodo = async (todo_id: number) => {
-        try {
-            await deleteTodo(todo_id);
-            console.log('Todo deleted successfully');
-            fetchTodos();
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     const handleCreateTodo = async (text: string) => {
         try {
             await createTodo(text);
@@ -104,7 +94,6 @@ const App = () => {
                 <TodosList
                     todos={todos}
                     onUpdate={handleUpdateTodo}
-                    onDelete={handleDeleteTodo}
                 />
                 <CreateTodoForm onCreate={handleCreateTodo}/>
             </div>
