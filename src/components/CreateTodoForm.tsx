@@ -1,4 +1,4 @@
-import {useState, useEffect, FC} from 'react';
+import {useState, useEffect, FC, ChangeEvent, KeyboardEvent} from 'react';
 import "./CreateTodoForm.css"
 import "./TodoItem.css"
 interface CreateTodoFormProps {
@@ -27,11 +27,11 @@ const CreateTodoForm: FC<CreateTodoFormProps> = ({ onCreate }) => {
         return () => clearTimeout(newTimeoutId);
     }, [text, onCreate]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             if (text.trim() !== '') {
@@ -43,7 +43,7 @@ const CreateTodoForm: FC<CreateTodoFormProps> = ({ onCreate }) => {
 
     return (
         <textarea
-            className="todo"
+            className="todo-textarea"
             value={text}
             onChange={handleChange}
             placeholder="Todo text"
