@@ -101,23 +101,21 @@ const App = () => {
     return (
         <div className="container">
             <div className="column">
-                <div className="scrollable">
-                    <TodosList
-                        todos={todos}
-                        onUpdate={handleUpdateTodo}
-                        onDelete={handleDeleteTodo}
-                    />
+                <TodosList
+                    todos={todos}
+                    onUpdate={handleUpdateTodo}
+                    onDelete={handleDeleteTodo}
+                />
+                <div className="sticky-form">
+                    <CreateTodoForm onCreate={handleCreateTodo}/>
                 </div>
-                <CreateTodoForm onCreate={handleCreateTodo}/>
             </div>
             <div className="column">
-                <div className="scrollable">
-                    <NotesList
-                        notes={notes}
-                        onUpdate={handleUpdateNote}
-                        onDelete={handleDeleteNote}
-                    />
-                </div>
+                <NotesList
+                    notes={notes}
+                    onUpdate={handleUpdateNote}
+                    onDelete={handleDeleteNote}
+                />
                 <CreateNoteForm onCreate={handleCreateNote}/>
             </div>
         </div>

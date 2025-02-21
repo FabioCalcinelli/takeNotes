@@ -8,9 +8,5 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-}
-
-.scrollable {
-    flex: 1;
     overflow-y: auto;
 }
