@@ -106,7 +106,7 @@ const App = () => {
                     onUpdate={handleUpdateTodo}
                     onDelete={handleDeleteTodo}
                 />
-                    <CreateTodoForm onCreate={handleCreateTodo}/>
+                <CreateTodoForm onCreate={handleCreateTodo}/>
             </div>
             <div className="column">
                 <NotesList

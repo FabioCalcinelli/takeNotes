@@ -1,11 +1,12 @@
 // CreateNoteForm.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
+import {FC} from "react";
 
 interface CreateNoteFormProps {
     onCreate: (piecesText: string[]) => void;
 }
 
-const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onCreate }) => {
+const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
     const [piecesText, setPiecesText] = useState<string[]>(['']);
 
     const handleAddPiece = () => {

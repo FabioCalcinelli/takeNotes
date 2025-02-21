@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import {useState, useEffect, FC} from 'react';
 import "./CreateTodoForm.css"
 import "./TodoItem.css"
 interface CreateTodoFormProps {
@@ -6,7 +6,7 @@ interface CreateTodoFormProps {
 }
 
 
-const CreateTodoForm: React.FC<CreateTodoFormProps> = ({ onCreate }) => {
+const CreateTodoForm: FC<CreateTodoFormProps> = ({ onCreate }) => {
     const [text, setText] = useState('');
     const [timeoutId, setTimeoutId] = useState<number | null>(null);
 

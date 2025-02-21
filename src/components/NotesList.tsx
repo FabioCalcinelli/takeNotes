@@ -1,7 +1,7 @@
 // NotesList.tsx
-import React from 'react';
 import { Note } from '../interfaces';
 import NoteItem from './NoteItem';
+import {FC} from "react";
 
 interface NotesListProps {
     notes: Note[];
@@ -9,7 +9,7 @@ interface NotesListProps {
     onDelete: (note_id: number) => void;
 }
 
-const NotesList: React.FC<NotesListProps> = ({ notes, onUpdate, onDelete }) => {
+const NotesList: FC<NotesListProps> = ({ notes, onUpdate, onDelete }) => {
     return (
         <div>
             {notes.map((note) => (
