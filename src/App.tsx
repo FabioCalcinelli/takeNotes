@@ -106,9 +106,7 @@ const App = () => {
                     onUpdate={handleUpdateTodo}
                     onDelete={handleDeleteTodo}
                 />
-                <div className="sticky-form">
                     <CreateTodoForm onCreate={handleCreateTodo}/>
-                </div>
             </div>
             <div className="column">
                 <NotesList
