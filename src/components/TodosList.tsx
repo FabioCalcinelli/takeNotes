@@ -10,13 +10,15 @@ interface TodosListProps {
 const TodosList = ({ todos, onUpdate}) => {
     return (
         <div>
-            {todos.map((todo) => (
-                <TodoItem
-                    key={todo.id}
-                    todo={todo}
-                    onUpdate={onUpdate}
-                />
-            ))}
+            {todos
+                .sort((a, b) => b.completed - a.completed)
+                .map((todo) => (
+                    <TodoItem
+                        key={todo.id}
+                        todo={todo}
+                        onUpdate={onUpdate}
+                    />
+                ))}
         </div>
     );
 };
