@@ -3,7 +3,7 @@
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 10px;
+    margin: 5px;
     overflow-wrap: break-word;
     font-size: 14px;
     font-family: Arial, sans-serif;
@@ -34,6 +34,7 @@
 }
 
 .completion-timestamp {
+    margin-top: 0;
     margin-left: 10px;
     visibility: hidden;
     background-color: #555;
@@ -50,7 +51,10 @@
     display: flex;
     align-items: center;
     flex-direction: row;
-
+    margin-top: 0;
+}
+.todo-header h3 {
+    margin-top: 0;
 }
 
 .completion-timestamp {
@@ -93,11 +97,13 @@
     height: 100%;
     box-sizing: border-box;
     padding: 0;
-    resize: vertical;
     font-size: 14px;
     background-color: transparent;
     border: none;
     outline: none;
     font-family: inherit;
+    resize: none;
+
 }
+
 
