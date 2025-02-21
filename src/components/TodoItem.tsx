@@ -1,5 +1,5 @@
 // TodoItem.tsx
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useState, MouseEvent} from 'react';
 import {Todo} from '../interfaces';
 import './TodoItem.css'
 import {convertTimestampToDateAndTime} from "../helper/convert_timestamp.ts";
@@ -7,7 +7,6 @@ import {convertTimestampToDateAndTime} from "../helper/convert_timestamp.ts";
 interface TodoItemProps {
     todo: Todo;
     onUpdate: (todo_id: number, text: string, switchCompletion: boolean) => void;
-    onDelete: (todo_id: number) => void;
 }
 
 const TodoItem = ({todo, onUpdate}) => {
@@ -25,16 +24,28 @@ const TodoItem = ({todo, onUpdate}) => {
         }
     };
 
-    const handleSwitchCompletion = () => {
+    const handleSwitchCompletion = (e: MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         if (todo.id !== undefined) {
             onUpdate(todo.id, text, true);
         }
     };
 
+    const CompletionButton = () => {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <button
+                    className={todo.completed ? 'red-button' : 'green-button'}
+                    onClick={handleSwitchCompletion}
+                >
+                    {todo.completed ? 'Mark as Incomplete' : 'Mark as Complete'}
+                </button>
+            </div>
+        );
+    };
+
     return (
-        <div className={`todo ${todo.completed ? 'completed' : 'uncompleted'}`}
-             onClick={() => !isEditing && setIsEditing(true)
-             }>
+        <div className={`todo ${todo.completed ? 'completed' : 'uncompleted'}`}>
             <div className="todo-header">
                 <h3>#{todo.id} - {convertTimestampToDateAndTime(todo.timestamp)}</h3>
                 {todo.completion_timestamp && (
@@ -59,18 +70,12 @@ const TodoItem = ({todo, onUpdate}) => {
                     placeholder="Todo text"
                     autoFocus
                 />
+                    <CompletionButton />
                 </div>
             ) : (
                 <div>
-                    <p>{todo.text}</p>
-                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                        <button
-                            className={todo.completed ? 'red-button' : 'green-button'}
-                            onClick={handleSwitchCompletion}
-                        >
-                            {todo.completed ? 'Mark as Incomplete' : 'Mark as Complete'}
-                        </button>
-                    </div>
+                    <p onClick={() => setIsEditing(true)}>{todo.text}</p>
+                    <CompletionButton />
                 </div>
             )}
         </div>

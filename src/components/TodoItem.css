@@ -5,6 +5,8 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 10px;
     overflow-wrap: break-word;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
 }
 
 .todo.completed {
@@ -85,3 +87,17 @@
     border: 2px solid red;
 
 }
+
+.todo textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    resize: vertical;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+}
+
