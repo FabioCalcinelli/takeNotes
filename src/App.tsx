@@ -48,16 +48,6 @@ const App = () => {
         }
     };
 
-    const handleDeleteNote = async (note_id: number) => {
-        try {
-            await deleteNote(note_id);
-            console.log('Note deleted successfully');
-            fetchNotes();
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     const handleCreateNote = async (piecesText: string[]) => {
         try {
             await createNote(piecesText);
@@ -101,7 +91,6 @@ const App = () => {
                 <NotesList
                     notes={notes}
                     onUpdate={handleUpdateNote}
-                    onDelete={handleDeleteNote}
                 />
                 <CreateNoteForm onCreate={handleCreateNote}/>
             </div>

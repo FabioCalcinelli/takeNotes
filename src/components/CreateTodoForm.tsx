@@ -46,7 +46,7 @@ const CreateTodoForm: FC<CreateTodoFormProps> = ({ onCreate }) => {
             className="todo-textarea"
             value={text}
             onChange={handleChange}
-            placeholder="Todo text"
+            placeholder="New todo"
             onKeyDown={handleKeyDown}
         />
     );

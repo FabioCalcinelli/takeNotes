@@ -71,7 +71,7 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
                             inputRefs.current[index] = el;
                         }
                     }}
-                    placeholder={`Piece ${index + 1}`}
+                    placeholder={`New note piece ${index + 1}`}
                 />
             ))}
         </div>

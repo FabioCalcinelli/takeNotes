@@ -1,5 +1,5 @@
 // TodoItem.tsx
-import {ChangeEvent, useState, MouseEvent} from 'react';
+import {ChangeEvent, useState, MouseEvent, useEffect} from 'react';
 import {Todo} from '../interfaces';
 import './TodoItem.css'
 import {convertTimestampToDateAndTime} from "../helper/convert_timestamp.ts";
@@ -43,6 +43,20 @@ const TodoItem = ({todo, onUpdate}) => {
             </div>
         );
     };
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && isEditing) {
+                setIsEditing(false);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isEditing]);
 
     return (
         <div className={`todo ${todo.completed ? 'completed' : 'uncompleted'}`}>

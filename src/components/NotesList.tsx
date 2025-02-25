@@ -6,10 +6,9 @@ import {FC} from "react";
 interface NotesListProps {
     notes: Note[];
     onUpdate: (note_id: number, piecesText: string[]) => void;
-    onDelete: (note_id: number) => void;
 }
 
-const NotesList: FC<NotesListProps> = ({ notes, onUpdate, onDelete }) => {
+const NotesList: FC<NotesListProps> = ({ notes, onUpdate}) => {
     return (
         <div>
             {notes.map((note) => (
@@ -17,7 +16,6 @@ const NotesList: FC<NotesListProps> = ({ notes, onUpdate, onDelete }) => {
                     key={note.id}
                     note={note}
                     onUpdate={onUpdate}
-                    onDelete={onDelete}
                 />
             ))}
         </div>

@@ -1,15 +1,14 @@
 // NoteItem.tsx
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Note} from '../interfaces';
 import './NoteItem.css'
 import {convertTimestampToDateAndTime} from "../helper/convert_timestamp.ts";
 interface NoteItemProps {
     note: Note,
     onUpdate: (note_id: number, piecesText: string[]) => void,
-    onDelete: (note_id: number) => void,
 }
 
-const NoteItem = ({note, onUpdate, onDelete}) => {
+const NoteItem = ({note, onUpdate}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [piecesText, setPiecesText] = useState<string[]>(note.pieces.map((p) => p.text));
 
@@ -30,8 +29,24 @@ const NoteItem = ({note, onUpdate, onDelete}) => {
         }
     };
 
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && isEditing) {
+                setIsEditing(false);
+            } else if (e.key === 'Enter' && !e.shiftKey && isEditing) {
+                handleSave();
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isEditing, handleSave]);
+
     return (
-        <div className='note'>
+        <div className='note' onClick={() => setIsEditing(true)}>
             <div className="note-metadata">
                 <h3>#{note.id} - {convertTimestampToDateAndTime(note.creation_timestamp)}</h3>
                 <p className="completion-timestamp">Last updated at: {convertTimestampToDateAndTime(note.last_update_timestamp)}</p>
@@ -51,21 +66,13 @@ const NoteItem = ({note, onUpdate, onDelete}) => {
                         <button type="button" onClick={handleAddPiece}>
                             Add Piece
                         </button>
-                        <button onClick={handleSave}>Save</button>
-                        <button onClick={() => setIsEditing(false)}>Cancel</button>
                     </div>
                 </div>
             ) : (
                 <div>
-                    <ul>
-                        {note.pieces.map((piece) => (
-                            <li key={piece.id}>{piece.text}</li>
-                        ))}
-                    </ul>
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
-                    <button onClick={() => note.id !== undefined && onDelete(note.id)}>
-                        Delete
-                    </button>
+                    {note.pieces.map((piece) => (
+                        <p key={piece.id}>{piece.text}</p>
+                    ))}
                 </div>
             )}
         </div>
