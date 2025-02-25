@@ -4,6 +4,13 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 20px;
     min-height: 600px;
+    resize: none;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
 }
 
 .todo-textarea:focus {
