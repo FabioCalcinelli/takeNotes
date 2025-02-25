@@ -2,9 +2,9 @@
 .note {
     border: 2px solid orange;
     border-radius: 10px;
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 20px;
+    margin: 10px;
     background-color: rgba(255, 165, 0, 0.1);
     font-size: 14px;
     font-family: Arial, sans-serif;
@@ -21,15 +21,20 @@
     color: #fff;
     padding: 5px;
     border-radius: 6px;
+    margin-top: 0;
+    margin-left: 10px;
 }
 
 .note:hover .completion-timestamp {
     visibility: visible;
 }
 
-.note-metadata {
+.note-header {
     display: flex;
     align-items: center;
     flex-direction: row;
-
+    margin-top: 0;
+}
+.note-header h3 {
+    margin-top: 0;
 }

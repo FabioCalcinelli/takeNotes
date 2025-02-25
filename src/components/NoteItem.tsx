@@ -47,7 +47,7 @@ const NoteItem = ({note, onUpdate}) => {
 
     return (
         <div className='note' onClick={() => setIsEditing(true)}>
-            <div className="note-metadata">
+            <div className="note-header">
                 <h3>#{note.id} - {convertTimestampToDateAndTime(note.creation_timestamp)}</h3>
                 <p className="completion-timestamp">Last updated at: {convertTimestampToDateAndTime(note.last_update_timestamp)}</p>
             </div>
