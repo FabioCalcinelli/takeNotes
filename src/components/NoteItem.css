@@ -8,6 +8,8 @@
     background-color: rgba(255, 165, 0, 0.1);
     font-size: 14px;
     font-family: Arial, sans-serif;
+    overflow-wrap: break-word;
+
 }
 
 .note:hover {
@@ -15,7 +17,7 @@
 }
 
 
-.completion-timestamp {
+.last-update-timestamp {
     visibility: hidden;
     background-color: #555;
     color: #fff;
@@ -25,7 +27,7 @@
     margin-left: 10px;
 }
 
-.note:hover .completion-timestamp {
+.note:hover .last-update-timestamp {
     visibility: visible;
 }
 
@@ -37,4 +39,62 @@
 }
 .note-header h3 {
     margin-top: 0;
+}
+
+.note textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    resize: none;
+
+}
+
+.piece-container {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.piece-text {
+    position: relative;
+    z-index: 0;
+}
+
+.piece-timestamp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    visibility: hidden;
+    z-index: 1;
+    background-color: #555;
+    color: #fff;
+    padding: 5px;
+    border-radius: 6px;
+    margin-top: 0;
+    margin-left: 10px;
+}
+
+.piece-container:hover .piece-timestamp {
+    visibility: visible;
+}
+
+.button {
+    background-color: rgba(255, 165, 0, 0.1);
+    border: 2px solid orange;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+.button:hover {
+    background-color: rgba(255, 165, 0, 0.3);
+    border: 2px solid orange;
+
 }
