@@ -15,6 +15,10 @@ const NoteItem = ({note, onUpdate}) => {
     const textAreaRefs = useRef<(HTMLTextAreaElement | null)[]>([]);
     const lastEditTimeRef = useRef<number>(0);
     const timeoutIdRef = useRef<number | null>(null);
+    const piecesTextRef = useRef(piecesText);
+    useEffect(() => {
+        piecesTextRef.current = piecesText;
+    }, [piecesText]);
 
     const handlePieceChange = (index: number, text: string) => {
         const newPiecesText = [...piecesText];
@@ -41,11 +45,13 @@ const NoteItem = ({note, onUpdate}) => {
 
     const handleSave = () => {
         if (note.id !== undefined) {
-            onUpdate(note.id, piecesText.filter((text) => text.trim() !== ''));
+            // Use the ref's current value instead of state
+            onUpdate(note.id, piecesTextRef.current.filter((text) => text.trim() !== ''));
             setIsEditing(false);
             setEditingPieceId(null);
         }
     };
+
 
     const handleCancel = () => {
         setIsEditing(false);

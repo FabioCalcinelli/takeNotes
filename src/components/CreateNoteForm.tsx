@@ -36,12 +36,6 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
         }, 5000) as unknown as number;
     };
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        onCreate(piecesText.filter((text) => text.trim() !== ''));
-        setPiecesText(['']);
-    };
-
     const handleKeyDown = (index: number, e: KeyboardEvent) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
