@@ -1,5 +1,4 @@
-import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
-import { FC } from "react";
+import { FC, useEffect, useRef, useState } from 'react';
 import "./CreateNoteForm.css"
 
 interface CreateNoteFormProps {
@@ -10,12 +9,10 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
     const [piecesText, setPiecesText] = useState<string[]>(['']);
     const inputRefs = useRef<HTMLTextAreaElement[]>([]);
     const timeoutId = useRef<number | null>(null);
-    const piecesTextRef = useRef<string[]>(piecesText);
 
-    // Sync ref with current state
-    useEffect(() => {
-        piecesTextRef.current = piecesText;
-    }, [piecesText]);
+    const resetForm = () => {
+        setPiecesText(['']);
+    };
 
     const handleAddPiece = () => {
         setPiecesText([...piecesText, '']);
@@ -25,32 +22,35 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
         const newPiecesText = [...piecesText];
         newPiecesText[index] = text;
         setPiecesText(newPiecesText);
-
-        if (timeoutId.current) {
-            clearTimeout(timeoutId.current);
-        }
-
-        timeoutId.current = setTimeout(() => {
-            // Use ref to get latest state
-            onCreate(piecesTextRef.current.filter((text) => text.trim() !== ''));
-        }, 5000) as unknown as number;
+        clearTimeoutTimeout();
     };
 
-    const handleKeyDown = (index: number, e: KeyboardEvent) => {
+    const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             handleAddPiece();
         }
+        clearTimeoutTimeout();
+    };
 
+    const clearTimeoutTimeout = () => {
         if (timeoutId.current) {
             clearTimeout(timeoutId.current);
         }
-
-        timeoutId.current = setTimeout(() => {
-            // Use ref to get latest state
-            onCreate(piecesTextRef.current.filter((text) => text.trim() !== ''));
-        }, 5000) as unknown as number;
     };
+
+    const createNote = () => {
+        const trimmedPieces = piecesText.filter((text) => text.trim() !== '');
+        if (trimmedPieces.length > 0) {
+            onCreate(trimmedPieces);
+            resetForm();
+        }
+    };
+
+    useEffect(() => {
+        clearTimeoutTimeout();
+        timeoutId.current = setTimeout(createNote, 5000);
+    }, [piecesText]);
 
     useEffect(() => {
         if (inputRefs.current.length > 0) {
