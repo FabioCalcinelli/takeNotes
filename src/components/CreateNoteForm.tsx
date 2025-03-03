@@ -1,4 +1,3 @@
-// CreateNoteForm.tsx
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { FC } from "react";
 import "./CreateNoteForm.css"
@@ -9,8 +8,14 @@ interface CreateNoteFormProps {
 
 const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
     const [piecesText, setPiecesText] = useState<string[]>(['']);
-    const inputRefs = useRef<HTMLInputElement[]>([]);
+    const inputRefs = useRef<HTMLTextAreaElement[]>([]);
     const timeoutId = useRef<number | null>(null);
+    const piecesTextRef = useRef<string[]>(piecesText);
+
+    // Sync ref with current state
+    useEffect(() => {
+        piecesTextRef.current = piecesText;
+    }, [piecesText]);
 
     const handleAddPiece = () => {
         setPiecesText([...piecesText, '']);
@@ -20,13 +25,15 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
         const newPiecesText = [...piecesText];
         newPiecesText[index] = text;
         setPiecesText(newPiecesText);
+
         if (timeoutId.current) {
             clearTimeout(timeoutId.current);
         }
+
         timeoutId.current = setTimeout(() => {
-            onCreate(piecesText.filter((text) => text.trim() !== ''));
-            setPiecesText(['']);
-        }, 5000);
+            // Use ref to get latest state
+            onCreate(piecesTextRef.current.filter((text) => text.trim() !== ''));
+        }, 5000) as unknown as number;
     };
 
     const handleSubmit = (e: FormEvent) => {
@@ -40,13 +47,15 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
             e.preventDefault();
             handleAddPiece();
         }
+
         if (timeoutId.current) {
             clearTimeout(timeoutId.current);
         }
+
         timeoutId.current = setTimeout(() => {
-            onCreate(piecesText.filter((text) => text.trim() !== ''));
-            setPiecesText(['']);
-        }, 5000);
+            // Use ref to get latest state
+            onCreate(piecesTextRef.current.filter((text) => text.trim() !== ''));
+        }, 5000) as unknown as number;
     };
 
     useEffect(() => {
@@ -57,9 +66,7 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
     }, [piecesText]);
 
     return (
-        <div
-            className="note-textarea">
-
+        <div className="note-textarea">
             {piecesText.map((text, index) => (
                 <textarea
                     key={index}
@@ -79,3 +86,4 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
 };
 
 export default CreateNoteForm;
+

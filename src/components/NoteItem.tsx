@@ -107,20 +107,20 @@ const NoteItem = ({note, onUpdate}) => {
             </div>
             {isEditing ? (
                 <div>
-                    {note.pieces.map((piece, index) => (
-                        <div key={piece.id} className="piece-container">
-                            <textarea
-                                ref={(ref) => {
-                                    if (textAreaRefs.current[index] === undefined) {
-                                        textAreaRefs.current[index] = ref;
-                                    } else {
-                                        textAreaRefs.current[index] = ref;
-                                    }
-                                }}
-                                value={piecesText[index]}
-                                onChange={(e) => handlePieceChange(index, e.target.value)}
-                                placeholder={`Piece ${index + 1}`}
-                            />
+                    {piecesText.map((piece, index) => (
+                        <div key={index} className="piece-container">
+                <textarea
+                    ref={(ref) => {
+                        if (textAreaRefs.current[index] === undefined) {
+                            textAreaRefs.current[index] = ref;
+                        } else {
+                            textAreaRefs.current[index] = ref;
+                        }
+                    }}
+                    value={piece}
+                    onChange={(e) => handlePieceChange(index, e.target.value)}
+                    placeholder={`Piece ${index + 1}`}
+                />
                         </div>
                     ))}
                     <div>
