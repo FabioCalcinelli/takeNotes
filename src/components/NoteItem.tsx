@@ -33,9 +33,41 @@ const NoteItem = ({note, onUpdate}) => {
         }, 5000);
     };
 
+    useEffect(() => {
+        if (isEditing) {
+            // Calculate initial heights when entering edit mode
+            textAreaRefs.current.forEach(textarea => {
+                if (textarea) {
+                    textarea.style.height = 'auto';
+                    textarea.style.height = `${textarea.scrollHeight}px`;
+                }
+            });
+        }
+    }, [isEditing]);
+
+    useEffect(() => {
+        // Update heights when pieces change (like when adding new ones)
+        textAreaRefs.current.forEach(textarea => {
+            if (textarea) {
+                textarea.style.height = 'auto';
+                textarea.style.height = `${textarea.scrollHeight}px`;
+            }
+        });
+    }, [piecesText]);
+
     const handleAddPiece = () => {
         setPiecesText([...piecesText, '']);
         textAreaRefs.current = [...textAreaRefs.current, null];
+
+        // Scroll to the new textarea after it's rendered
+        setTimeout(() => {
+            const lastTextarea = textAreaRefs.current[textAreaRefs.current.length - 1];
+            if (lastTextarea) {
+                lastTextarea.focus();
+                lastTextarea.style.height = 'auto';
+                lastTextarea.style.height = `${lastTextarea.scrollHeight}px`;
+            }
+        }, 0);
     };
 
     const handleClick = (index: number) => {
@@ -115,18 +147,23 @@ const NoteItem = ({note, onUpdate}) => {
                 <div>
                     {piecesText.map((piece, index) => (
                         <div key={index} className="piece-container">
-                <textarea
-                    ref={(ref) => {
-                        if (textAreaRefs.current[index] === undefined) {
-                            textAreaRefs.current[index] = ref;
-                        } else {
-                            textAreaRefs.current[index] = ref;
-                        }
-                    }}
-                    value={piece}
-                    onChange={(e) => handlePieceChange(index, e.target.value)}
-                    placeholder={`Piece ${index + 1}`}
-                />
+                    <textarea
+                        ref={(ref) => {
+                            if (textAreaRefs.current[index] === undefined) {
+                                textAreaRefs.current[index] = ref;
+                            } else {
+                                textAreaRefs.current[index] = ref;
+                                }
+                        }}
+                        value={piece}
+                        onChange={(e) => handlePieceChange(index, e.target.value)}
+                        onInput={(e) => {
+                        const target = e.target as HTMLTextAreaElement;
+                        target.style.height = 'auto';
+                        target.style.height = `${target.scrollHeight}px`;
+                        }}
+                        placeholder={`Piece ${index + 1}`}
+                    />
                         </div>
                     ))}
                     <div>
