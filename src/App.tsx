@@ -1,5 +1,5 @@
 // App.tsx
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef, useLayoutEffect} from 'react';
 import {Note, Todo} from './interfaces';
 import {getAllNotes, createNote, updateNote, deleteNote} from './services/api_notes';
 import CreateNoteForm from './components/CreateNoteForm';
@@ -78,16 +78,24 @@ const App = () => {
         }
     };
 
+    const todoColumnRef = useRef<HTMLDivElement | null>(null);
+    const noteColumnRef = useRef<HTMLDivElement | null>(null);
+
+    useLayoutEffect(() => {
+        todoColumnRef.current?.scrollTo(0, todoColumnRef.current?.scrollHeight);
+        noteColumnRef.current?.scrollTo(0, noteColumnRef.current?.scrollHeight);
+    }, [todos, notes]);
+
     return (
         <div className="container">
-            <div className="column">
+            <div className="column" ref={todoColumnRef}>
                 <TodosList
                     todos={todos}
                     onUpdate={handleUpdateTodo}
                 />
                 <CreateTodoForm onCreate={handleCreateTodo}/>
             </div>
-            <div className="column">
+            <div className="column" ref={noteColumnRef}>
                 <NotesList
                     notes={notes}
                     onUpdate={handleUpdateNote}
