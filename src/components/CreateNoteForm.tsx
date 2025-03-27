@@ -49,7 +49,7 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({ onCreate }) => {
 
     useEffect(() => {
         clearTimeoutTimeout();
-        timeoutId.current = setTimeout(createNote, 5000);
+        timeoutId.current = setTimeout(createNote, 60000);
     }, [piecesText]);
 
     useEffect(() => {

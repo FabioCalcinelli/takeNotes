@@ -30,7 +30,7 @@ const NoteItem = ({note, onUpdate}) => {
         }
         timeoutIdRef.current = setTimeout(() => {
             handleSave();
-        }, 5000);
+        }, 60000);
     };
 
     useEffect(() => {

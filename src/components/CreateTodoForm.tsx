@@ -20,7 +20,7 @@ const CreateTodoForm: FC<CreateTodoFormProps> = ({ onCreate }) => {
                 onCreate(text.trim());
                 setText('');
             }
-        }, 5000);
+        }, 60000);
 
         setTimeoutId(newTimeoutId);
 
